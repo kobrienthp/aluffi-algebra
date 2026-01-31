@@ -1,0 +1,216 @@
+\subsection{Functions between sets}
+
+\begin{exercise}[ID=1.2.4]
+  Prove that 'isomorphism' is an equivalence relation (on any set of sets).
+\end{exercise}
+\begin{solution}
+  \begin{proof}
+    Let $\mathcal{S}$ be a set of sets.
+    \bigskip
+
+    \noindent\textbf{Reflexivity:} Consider a set $A \in \mathcal{S}$.
+    Noting that the identity map $\rm{id}_A: A \rightarrow A$ on $A$ is an isomorphism, we have that $A$ is isomorphic to itself.
+    Thus, $A \sim A$.
+    \bigskip
+
+    \noindent\textbf{Symmetry:} Consider two sets $A, B \in \mathcal{S}$.
+    Suppose that $A \sim B$, \ie, there exists an isomorphism $f: A \rightarrow B$ from $A$ to $B$.
+    From Exercise 1.2.3 we know that the inverse $f\inv: B \rightarrow A$ of $f$ is an isomorphism.
+    Thus, $B \sim A$.
+    \bigskip
+
+    \noindent\textbf{Transitivity:} Consider sets $A, B, C \in \mathcal{S}$.
+    Suppose that $A \sim B$ and $B \sim C$.
+    Then there exist isomorphisms $f: A \rightarrow B$ and $g: B \rightarrow C$.
+    From Exercise 1.2.3 we know that the composition of isomorphisms is an isomorphism.
+    Thus, $g \circ f: A \rightarrow C$ furnishes an isomorphism from $A$ to $C$.
+    It follows that $A \sim C$.
+    Thus, isomorphism is an equivalence relation on any set of sets.
+  \end{proof}
+\end{solution}
+\newpage
+
+\begin{exercise}[ID=1.2.5]
+  Formulate a notion of \textit{epimorphism}, in the style of the notion of \textit{monomorphism} seen in \S1.2.6, and prove a result analogous to Proposition 1.2.3 for epimorphisms and surjections.
+\end{exercise}
+\begin{solution}
+  \textbf{Definition.} A function $f: A \rightarrow B$ from a set $A$ to a set $B$ is called an \bemph{epimorphism} (or \bemph{epimorphic}) if for all sets $Z$ and all functions $\beta', \beta'': B \rightarrow Z$,
+  %
+  \begin{equation*}
+    \beta' \circ f = \beta'' \circ f \qquad \implies \qquad \beta' = \beta''.
+  \end{equation*}
+  %
+  \bigskip
+
+  \textbf{Claim.} A function $f: A \rightarrow B$ from a set $A$ to a set $B$ is surjective if and only if it is an epimorphism.
+  \begin{proof}
+    ($\implies$) Suppose $f: A \rightarrow B$ is a surjective function from a set $A$ to a set $B$, so that it has a right-inverse $g: B \rightarrow A$.
+    Let $Z$ be an arbitrary set and let $\beta', \beta'': B \rightarrow Z$ be functions satisfying $\beta' \circ f = \beta'' \circ f$.
+    From associativity of function composition, it follows that
+    %
+    \begin{equation*}
+      \beta' \circ (f \circ g) = (\beta' \circ f) \circ g = (\beta'' \circ f) \circ g = \beta'' \circ (f \circ g).
+    \end{equation*}
+    %
+    Since $g$ is a right-inverse of $f$, we have
+    %
+    \begin{equation*}
+      \beta' \circ \rm{id}_B = \beta'' \circ \rm{id}_B.
+    \end{equation*}
+    %
+    It follows that $\beta' = \beta''$ and, thus, $f$ is an epimorphism.
+    \bigskip
+
+    ($\impliedby$) Conversely, suppose $f: A \rightarrow B$ is an epimorphism.
+    Define functions $\beta', \beta'':~ B \rightarrow B$ by
+    %
+    \begin{equation*}
+      \beta'(b) =
+      \begin{cases}
+        b  & \text{if}\quad b \in f(A)     \\
+        b' & \text{if}\quad b \not\in f(A)
+      \end{cases}
+      \qquad\text{and}\qquad
+      \beta''(b) =
+      \begin{cases}
+        b   & \text{if}\quad b \in f(A)      \\
+        b'' & \text{if}\quad b \not\in f(A),
+      \end{cases}
+    \end{equation*}
+    where $b', b''$ are \textit{distinct} elements of $B$ (if $\abs{B} = 1$, then $f$ is trivially a surjection).
+    By construction we have that $\restr{\beta'}{f(A)} = \restr{\beta''}{f(A)}$, and so $\beta' \circ f = \beta'' \circ f$.
+    Since $f$ is an epimorphism, this implies that $\beta' = \beta''$.
+    As $b'$ and $b''$ were chosen to be distinct, it must then be the case that $B \setminus f(A) = \emptyset$.
+    It follows that $f$ is a surjection.
+  \end{proof}
+\end{solution}
+\newpage
+
+\begin{exercise}[ID=1.2.6]
+  Explain how any function $f: A \rightarrow B$ determines a section of $\pi_A$.
+\end{exercise}
+\begin{solution}
+  \textbf{Claim.} The map
+  %
+  \begin{equation*}
+    \begin{aligned}
+      s:~ & A \rightarrow A \times B \\
+          & a \mapsto (a, f(a))
+    \end{aligned}
+  \end{equation*}
+  %
+  is a section of $\pi_A$.
+  \begin{proof}
+    We show that $s$ is a right-inverse (and therefore section) of $\pi_A$, \ie, $\pi_A \circ s = \rm{id}_A$.
+    Let $a \in A$.
+    Then
+    %
+    \begin{equation*}
+      \begin{aligned}
+        (\pi_A \circ s)(a) & = \pi_A(s(a))   \\
+                           & = \pi(a, f(a))  \\
+                           & = a             \\
+                           & = \rm{id}_A(a).
+      \end{aligned}
+    \end{equation*}
+    %
+  \end{proof}
+\end{solution}
+\newpage
+
+\begin{exercise}[ID=1.2.7]
+  Let $f: A \rightarrow B$ be any function.
+  Prove that the graph $\Gamma_f$ of $f$ is isomorphic to $A$.
+\end{exercise}
+\begin{solution}
+  \begin{proof}
+    Let $f: A \rightarrow B$ be a function from a set $A$ to a set $B$.
+    Let
+    %
+    \begin{equation*}
+      \begin{aligned}
+        s:~ & A \rightarrow A \times B \\
+            & a \mapsto (a, f(a))
+      \end{aligned}
+    \end{equation*}
+    %
+    be the section of $\pi_A$ determined by $f$.
+    We show that $s$ determines an isomorphism from $A$ to $\Gamma_f$.
+    Computing the image set of $A$ by $s$,
+    %
+    \begin{equation*}
+      \begin{aligned}
+        s(A) & = \{x \in A \times B \mid \exists a \in A, x = s(a)\} \\
+             & = \{(a, f(a)) \in A \times B \mid a \in A\}           \\
+             & = \{(a, b) \in A \times B \mid a \in A, b = f(a) \}   \\
+             & = \Gamma_f.
+      \end{aligned}
+    \end{equation*}
+    %
+    Thus, by restricting the range of $s$, we may define a surjection
+    %
+    \begin{equation*}
+      \begin{aligned}
+        s':~ & A \rightarrow \Gamma_f \\
+             & a \mapsto s(a).
+      \end{aligned}
+    \end{equation*}
+    %
+
+    We now show that $s'$ is an injection, thus proving that $A$ is isomorphic to $\Gamma_f$.
+    Suppose $a', a'' \in A$.
+    Then
+    %
+    \begin{equation*}
+      a' \neq a''
+      \qquad \implies \qquad
+      \pi_A(s'(a')) \neq \pi_A(s'(a'')).
+    \end{equation*}
+    %
+    That is, $a' \neq a'' \implies s'(a') \neq s'(a'')$, since they differ in the first factor.
+    This demonstrates that $s'$ is an injection and thus an isomorphism from $A$ to $\Gamma_f$.
+    By reflexivity, we have that $\Gamma_f$ is isomorphic to $A$.
+  \end{proof}
+\end{solution}
+\newpage
+
+\begin{exercise}[ID=1.2.9]
+  Show that if $A' \cong A''$ and $B' \cong B''$, and further $A' \cap B' = \emptyset$ and $A'' \cap B'' = \emptyset$, then $A' \cup B' \cong A'' \cup B''$.
+  Conclude that the operation $A \coprod B$ is well-defined \textit{up to isomorphism}.
+\end{exercise}
+\begin{solution}
+  \begin{proof}
+    Let $f_A: A' \rightarrow A''$ and $f_B: B' \rightarrow B''$ be isomorphisms.
+    Define a map $F: A' \cup B' \rightarrow A'' \cup B''$ by the formula
+    %
+    \begin{equation*}
+      x \mapsto
+      \begin{cases}
+        f_A(x) & \text{if}\quad x \in A'  \\
+        f_B(x) & \text{if}\quad x \in B'.
+      \end{cases}
+    \end{equation*}
+    %
+    This determines a function since $A' \cap B' = \emptyset$.
+
+    Let $x', x'' \in A' \cup B'$ and suppose $x' \neq x''$.
+    If $x', x'' \in A'$, then $F(x') = f_A(x')$ and $F(x'') = f_A(x'')$ are distinct, since $f_A$ is an isomorphism.
+    Similarly, if $x', x'' \in B'$, then $F(x') = f_B(x')$ and $F(x'') = f_B(x'')$ are distinct, since $f_B$ is an isomorphism.
+    The remaining possibility is that $x' \in A'$ and $x'' \in B'$ (or $x' \in B'$ and $x'' \in A'$ -- we will handle the former case as the latter follows by direct analogy).
+    Then $F(x') = f_A(x') \in A''$ and $F(x'') = f_B(x'') \in B''$.
+    Since $A'' \cap B'' = \emptyset$, it follows that $F(x') \neq F(x'')$.
+    Thus, $F$ is an injection.
+
+    Now, let $y \in A'' \cup B''$.
+    Then either $y \in A''$ or $y \in B''$.
+    If $y \in A''$, then there exists an element $x' \in A' \subset A' \cup B'$ such that $y = f_A(x') = F(x')$, since $f_A$ is an isomorphism.
+    Similarly, if $y \in B''$, then there exists an element $x'' \in B' \subset A' \cup B'$ such that $y = f_B(x'') = F(x'')$, since $f_B$ is an isomorphism.
+    Thus, $F$ furnishes an isomorphism between $A' \cup B'$ and $A'' \cup B''$, determined by our choice of $f_A$ and $f_B$.
+
+    In the definition of the disjoint union $A \coprod B$ of sets $A$ and $B$, one first produced isomorphic copies $A'$ and $B'$ of $A$ and $B$, respectively, such that $A' \cap B' = \emptyset$ and took their union so that $A \coprod B = A' \cup B'$.
+    We have just shown that if we were to choose different isomorphic copies $A''$ and $B''$ of $A$ and $B$, respectively, also satisfying $A'' \cap B'' = \emptyset$, then we have that $A \coprod B = A' \cup B' \cong A'' \cup B''$.
+    Thus, there is only a unique choice of $A \coprod B$ up to isomorphism.
+  \end{proof}
+\end{solution}
+\newpage
+

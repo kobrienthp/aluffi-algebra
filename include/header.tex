@@ -1,0 +1,40 @@
+
+% Redefine \theexercise to allow manual numbering
+\renewcommand{\theexercise}{\GetExerciseProperty{ID}}
+\renewcommand{\thesolution}{}
+
+%  Define a custom template for exercises
+\DeclareExerciseEnvironmentTemplate{custom}{
+  \subsection*{\XSIMmixedcase{\GetExerciseName}~\GetExerciseProperty{ID}}
+}{
+  \par
+}
+
+\xsimsetup{
+  exercise/template = custom,
+  solution/print = true
+}
+
+\newcommand{\ba}{\mathbf{a}}
+\newcommand{\bx}{\mathbf{x}}
+\newcommand{\by}{\mathbf{y}}
+\newcommand{\bz}{\mathbf{z}}
+\newcommand{\bw}{\mathbf{w}}
+\newcommand{\inv}{^{-1}}
+\newcommand{\ZZ}{\mathbb{Z}}
+\newcommand{\RR}{\mathbb{R}}
+
+\newcommand{\ie}{\textit{i.e.}}
+\newcommand{\eg}{\textit{e.g.}}
+
+\newcommand{\abs}[1]{\left| #1 \right|}
+\newcommand{\diam}{\text{diam}~}
+
+\newcommand\restr[2]{{
+\left.\kern-\nulldelimiterspace % automatically resize the bar with \right
+#1 % the function
+%\vphantom{\big|} % pretend it's a little taller at normal size
+\right|_{#2} % this is the delimiter
+}}
+
+\DeclareTextFontCommand{\bemph}{\bfseries\itshape}
