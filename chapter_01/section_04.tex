@@ -1,0 +1,166 @@
+\subsection{Morphisms}
+
+\begin{exercise}[ID=1.4.1]
+  Composition is defined for \textit{two} morphisms.
+  If more than two morphisms are given, \eg,
+  %
+  \begin{equation*}
+    \begin{tikzcd}
+      A \arrow[r, "f"]  \& B \arrow[r, "g"]  \& C \arrow[r, "h"]  \& D \arrow[r, "i"]  \& E,
+    \end{tikzcd}
+  \end{equation*}
+  %
+  then one may compose them in several ways, for example:
+  %
+  \begin{equation*}
+    (ih)(gf),\quad (i(hg))f,\quad i((hg)f),\quad \text{etc.}
+  \end{equation*}
+  %
+  so that at every step one is only composing two morphisms.
+  Prove that the result of any such nested composition is independent of the placement of the parentheses.
+\end{exercise}
+\begin{solution}
+  \begin{proof}
+    Given morphisms
+    %
+    \begin{equation*}
+      \begin{aligned}
+        f_1:  A_1 & \rightarrow A_2,     \\
+                  & \vdots               \\
+        f_n:A_n   & \rightarrow A_{n+1},
+      \end{aligned}
+    \end{equation*}
+    %
+    in a category $\cat{C}$, we will show by induction that every bracketing of $f_n \cdots f_1$ by parentheses evaluates to the same morphism $A_1 \rightarrow A_{n+1}$.
+
+    For $n = 2$, there is nothing to prove.
+    For $n = 3$, associativity of morphism composition gives
+    %
+    \begin{equation*}
+      f_3 (f_2 f_1) = (f_3 f_2) f_1.
+    \end{equation*}
+    %
+
+    Assume the claim holds for all strings of length $\leq n$ with $n \geq 3$.
+    Consider composable morphisms $f_1, \ldots, f_{n+1}$.
+    Let $B$ be an arbitrary bracketing of $f_{n+1} \cdots f_1$.
+    Since a bracketing is a binary composition, at the outermost level it has the form
+    %
+    \begin{equation*}
+      B = (B_R) (B_L),
+    \end{equation*}
+    %
+    where for some $k \in \{1, \ldots, n\}$, $B_R$ is a bracketing of $f_{n+1} \cdots f_{k+1}$ and $B_L$ is a bracketing of $f_k \cdots f_1$.
+    By the induction hypothesis applied to the shorter strings, the morphisms evaluated by $B_R$ and $B_L$ are independent of parentheses.
+    In particular, they agree with the composites
+    %
+    \begin{equation*}
+      B_R = f_{n+1} (f_n (\cdots f_{k+1})),\qquad B_L = f_k (f_{k-1} (\cdots f_1)).
+    \end{equation*}
+    %
+    Therefore, $B = (B_R) (B_L)$ equals the composite of these two canonical morphisms, hence is uniquely determined and independent of the original choice of $B$.
+    This proves that all bracketings of $f_{n+1} \cdots f_1$ evaluate to the same morphism.
+  \end{proof}
+\end{solution}
+\newpage
+
+\begin{exercise}[ID=1.4.3]
+  Let $A, B$ be objects of a category $\cat{C}$, and let $f \in \hom_\cat{C}(A, B)$ be a morphism.
+  Prove that if $f$ has a right-inverse, then $f$ is an epimorphism.
+\end{exercise}
+\begin{solution}
+  \begin{proof}
+    Suppose that the morphism $f \in \hom_\cat{C}(A, B)$ has a right-inverse $g \in \hom_\cat{C}(B, A)$.
+    Let $Z$ be any object of $\cat{C}$ and let $\beta', \beta'' \in \hom_\cat{C}(B, Z)$ be morphisms satisfying
+    %
+    \begin{equation*}
+      \beta' f = \beta'' f.
+    \end{equation*}
+    %
+    Composing on the right by $g$,
+    %
+    \begin{equation*}
+      \begin{alignedat}{3}
+        &                 && (\beta' f) g = (\beta'' f) g \\
+        & \implies\qquad  && \beta' (f g) = \beta'' (f g) \\
+        & \implies\qquad  && \beta'~1_B = \beta''~1_B \\
+        & \implies\qquad  && \beta' = \beta''.
+      \end{alignedat}
+    \end{equation*}
+    %
+    Thus, $f$ is a monomorphism.
+  \end{proof}
+\end{solution}
+\newpage
+
+\begin{exercise}[ID=1.4.4]
+  Prove that the composition of two monomorphisms is a monomorphism.
+  Deduce that one can define a subcategory $\cat{C}_{\rm mono}$ of a category $\cat{C}$ by taking the same objects as in $\cat{C}$ and defining $\hom_{\cat{C}_{\rm mono}}(A, B)$ to be the subset of $\hom_\cat{C}(A, B)$ consisting of monomorphisms, for all objects $A, B$.
+  Do the same for epimorphisms.
+  Can you define a subcategory $\cat{C}_{\rm nonmono}$ of $\cat{C}$ by restricting to morphisms that are \textit{not} monomorphisms?
+\end{exercise}
+\begin{solution}
+  \begin{proof}
+    Let $f \in \hom_\cat{C}(A, B)$ and $g \in \hom_\cat{C}(B, C)$ be monomorphisms.
+    Let $Z$ be any object of $\cat{C}$ and let $\beta', \beta'' \in \hom_\cat{C}(C, Z)$ be morphisms satisfying
+    %
+    \begin{equation*}
+      \beta' (g f) = \beta'' (g f).
+    \end{equation*}
+    %
+    By associativity of composition, this implies that
+    %
+    \begin{equation*}
+      (\beta' g) f = (\beta'' g) f.
+    \end{equation*}
+    %
+    Since $f$ is a monomorphism by hypothesis, it follows that
+    %
+    \begin{equation*}
+      \beta' g = \beta'' g,
+    \end{equation*}
+    %
+    and furthermore, since $g$ is also a monomorphism by hypothesis, we have
+    %
+    \begin{equation*}
+      \beta' = \beta''.
+    \end{equation*}
+    %
+    Thus, the morphism $g f \in \hom_\cat{C}(A, C)$ is a monomorphism.
+
+    Since composition of morphisms in $\cat{C}$ is already associative and since identities in $\cat{C}$ are trivially monomorphisms, we find that we can indeed define a subcategory $\cat{C}_{\rm mono}$ by taking the same objects as in $\cat{C}$ and defining $\hom_{\cat{C}_{\rm mono}}(A, B)$ to be the subset of $\hom_\cat{C}(A, B)$ consisting of monomorphisms, for all objects $A, B$.
+
+    Let now $f \in \hom_\cat{C}(A, B)$ and $g \in \hom_\cat{C}(B, C)$ be epimorphisms.
+    Let $Z$ be any object of $\cat{C}$ and let $\alpha', \alpha'' \in \hom_\cat{C}(Z, C)$ be morphisms satisfying
+    %
+    \begin{equation*}
+      (g f) \alpha' = (g f) \alpha''.
+    \end{equation*}
+    %
+    By associativity of composition, this implies that
+    %
+    \begin{equation*}
+      g (f \alpha') = g (f \alpha'').
+    \end{equation*}
+    %
+    Since $f$ is an epimorphism by hypothesis, it follows that
+    %
+    \begin{equation*}
+      f \alpha' = f \alpha'',
+    \end{equation*}
+    %
+    and furthermore, since $g$ is also an epimorphism by hypothesis, we have
+    %
+    \begin{equation*}
+      \alpha' = \alpha''.
+    \end{equation*}
+    %
+    Thus, the morphism $g f \in \hom_\cat{C}(A, C)$ is an epimorphism.
+
+    Since composition of morphisms in $\cat{C}$ is already associative and since identities in $\cat{C}$ are trivially epimorphisms, we find that we can indeed define a subcategory $\cat{C}_{\rm epi}$ by taking the same objects as in $\cat{C}$ and defining $\hom_{\cat{C}_{\rm epi}}(A, B)$ to be the subset of $\hom_\cat{C}(A, B)$ consisting of epimorphisms, for all objects $A, B$.
+
+    On the other hand, since any identity morphism must be a monomorphism, we have no way to construct a category $\cat{C}_{\rm nonmono}$ where we restrict to morphisms that are not monomorphisms.
+  \end{proof}
+\end{solution}
+\newpage
+
